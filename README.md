@@ -415,15 +415,109 @@ Replace `<ROLE_ARN>` with the `role_arn` output value from the previous step, wi
   apply` command from the last section, return to the `trust` directory and run
   `terraform output` to have Terraform print it out again.
 
+**Screenshot: workspace variables configured**
+
 ### Apply configuration
+
+Return to your workspace's **Overview** page, and choose **Actions > Start new
+run**. Choose the **Plan and apply** run type. Select **Start run** to start the
+run.
+
+Terraform Cloud will perform a speculative plan, and report the results on your workspace's overview page. Select **Apply** to apply the plan.
+
+Once the plan and apply steps are complete, review the results on the overview page.
+
+**Screenshot: Apply complete screen**
+
+Now you have provisioned infrastructure with Terraform Cloud using dynamic credentials.
+
+**FIXME: Mention common errors here?**
 
 ## Clean up your infrastructure
 
+Remove the infrastructure and trust relationship that you created in this
+tutorial.
+
 ### Destroy infrastructure
 
-### Delete Infrastructure workspace
+First, remove the EC2 instance you created. From your workspace overview page in
+Terraform Cloud, navigate to **Settings > Destruction and Deletion**. From
+there, select the **Queue destroy plan** and follow the prompts to plan and
+apply a destroy workflow step.
+
+### Delete infrastructure workspace
+
+After you verify that your EC2 instance has been destroyed, delete the workspace
+from Terraform Cloud. From the **Settings > Destruction and Deletion** page,
+select the **Delete from Terraform Cloud** button and follow the prompts to
+delete the workspace.
 
 ### Destroy trust relationship
 
+Destroy the trust relationship you created in this tutorial.
+
+In your terminal window, navigate to the `trust` directory.
+
+```sh
+cd ../trust
+```
+
+Destroy the trust relationship and related resources. Respond to the confirmation prompt with a `yes`.
+
+```sh
+$ terraform destroy
+data.tls_certificate.tfc_certificate: Reading...
+aws_iam_policy.tfc_policy: Refreshing state... [id=arn:aws:iam::841397984957:policy/tfc-policy]
+data.tls_certificate.tfc_certificate: Read complete after 1s [id=896bd9f2e4b99335cca9e93921664e636e35cab3]
+aws_iam_openid_connect_provider.tfc_provider: Refreshing state... [id=arn:aws:iam::841397984957:oidc-provider/app.terraform.io]
+aws_iam_role.tfc_role: Refreshing state... [id=tfc-role]
+aws_iam_role_policy_attachment.tfc_policy_attachment: Refreshing state... [id=tfc-role-20230118171909964800000001]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_iam_openid_connect_provider.tfc_provider will be destroyed
+  - resource "aws_iam_openid_connect_provider" "tfc_provider" {
+##...
+Plan: 0 to add, 0 to change, 4 to destroy.
+
+Changes to Outputs:
+  - role_arn = "arn:aws:iam::841397984957:role/tfc-role" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_iam_role_policy_attachment.tfc_policy_attachment: Destroying... [id=tfc-role-20230118171909964800000001]
+aws_iam_role_policy_attachment.tfc_policy_attachment: Destruction complete after 0s
+aws_iam_policy.tfc_policy: Destroying... [id=arn:aws:iam::841397984957:policy/tfc-policy]
+aws_iam_role.tfc_role: Destroying... [id=tfc-role]
+aws_iam_policy.tfc_policy: Destruction complete after 1s
+aws_iam_role.tfc_role: Destruction complete after 1s
+aws_iam_openid_connect_provider.tfc_provider: Destroying... [id=arn:aws:iam::841397984957:oidc-provider/app.terraform.io]
+aws_iam_openid_connect_provider.tfc_provider: Destruction complete after 0s
+
+Destroy complete! Resources: 4 destroyed.
+```
+
 ## Next steps
 
+In this tutorial, you learned how to use dynamic credentials with Terraform
+Cloud by creating a trust relationship between Terraform Cloud and your cloud
+provider. Then you used that trust relationship to provision infrastructure with
+dynamic credentials. Refer to the following resources to learn more about
+dynamic credentials.
+
+- In this tutorial, you manually created the Terraform Cloud workspace that you
+  used to provision resources with dynamic credentials. You can also use
+  HashiCorp's TFE provider to provision your workspaces. Refer the
+  [terraform-dynamic-credentials-setup-examples GitHub
+  repository](https://github.com/hashicorp/terraform-dynamic-credentials-setup-examples)
+  for example configuration.
+- Read the [dynamic credentials documentation](FIXME: link) for more details
+  about how to configure your trust relationships.
+- FIXME: Third next step?
