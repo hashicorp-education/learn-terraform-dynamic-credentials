@@ -2,11 +2,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-locals {
-  non_project_sub_prefix = "organization:${var.tfc_organization_name}:workspace:${var.tfc_workspace_name}"
-  project_sub_prefix     = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}"
-}
-
 data "tls_certificate" "tfc_certificate" {
   url = "https://${var.tfc_hostname}"
 }
@@ -35,10 +30,7 @@ resource "aws_iam_role" "tfc_role" {
          "app.terraform.io:aud": "${one(aws_iam_openid_connect_provider.tfc_provider.client_id_list)}"
        },
        "StringLike": {
-         "app.terraform.io:sub": [
-           "${local.non_project_sub_prefix}:run_phase:*",
-           "${local.project_sub_prefix}:run_phase:*"
-         ]
+         "app.terraform.io:sub": "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:*"
        }
      }
    }
