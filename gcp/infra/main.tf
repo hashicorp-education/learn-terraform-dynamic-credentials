@@ -1,8 +1,7 @@
 provider "google" {
   project = var.gcp_project_id
-  region  = "global"
+  region  = var.gcp_region
 }
-
 
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
