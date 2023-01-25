@@ -15,3 +15,8 @@ variable "gcp_region" {
   default     = "us-east1"
   description = "GCP region for all resources"
 }
+
+variable "gcp_project_id" {
+  type        = string
+  description = "GCP project ID for all resources"
+}
