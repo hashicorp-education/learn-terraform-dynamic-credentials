@@ -10,7 +10,7 @@ resource "google_compute_instance" "vm_instance" {
 
   boot_disk {
     initialize_params {
-      image = "fedora-cloud-36"
+      image = "fedora-cloud-36/fedora-cloud-base-gcp-36-20220506-n-0-x86-64"
     }
   }
 
