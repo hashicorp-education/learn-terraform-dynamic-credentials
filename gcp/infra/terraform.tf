@@ -5,4 +5,9 @@ terraform {
       version = "~> 4.50.0"
     }
   }
+  cloud {
+    workspaces {
+      name = "learn-terraform-dynamic-credentials"
+    }
+  }
 }

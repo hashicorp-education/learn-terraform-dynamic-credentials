@@ -7,7 +7,7 @@ terraform {
   }
   cloud {
     workspaces {
-      name = "learn-terraform-dynamic-credentials-robin"
+      name = "learn-terraform-dynamic-credentials"
     }
   }
 }
