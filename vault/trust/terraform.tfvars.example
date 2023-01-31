@@ -1,0 +1,3 @@
+tfc_organization_name = "<YOUR_ORG>"
+tfc_workspace_name    = "learn-terraform-dynamic-credentials"
+vault_url             = "https://YOUR_VAULT_URL"
