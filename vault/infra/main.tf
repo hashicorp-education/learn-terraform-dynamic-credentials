@@ -3,6 +3,7 @@ provider "vault" {
 }
 
 resource "vault_mount" "example" {
+  namespace = "admin"
   path    = "example"
   type    = "kv"
   options = { version = "2" }
