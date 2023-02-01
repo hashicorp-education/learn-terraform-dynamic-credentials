@@ -44,8 +44,8 @@ path "auth/token/revoke-self" {
 }
 
 # Configure the actual secrets the token should have access to
-path "secret/*" {
-  capabilities = ["read"]
+path "example/*" {
+  capabilities = ["create", "read", "update", "patch", "delete", "list"]
 }
 EOT
 }
