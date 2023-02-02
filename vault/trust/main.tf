@@ -43,7 +43,14 @@ path "auth/token/revoke-self" {
     capabilities = ["update"]
 }
 
-# Configure the actual secrets the token should have access to
+path "sys/mounts" {
+  capabilities = ["list", "read"]
+}
+
+path "sys/mounts/example" {
+  capabilities = ["create", "read", "update", "patch", "delete", "list"]
+}
+
 path "example/*" {
   capabilities = ["create", "read", "update", "patch", "delete", "list"]
 }
