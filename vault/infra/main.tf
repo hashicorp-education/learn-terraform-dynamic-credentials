@@ -4,7 +4,7 @@ provider "vault" {
 
 resource "vault_mount" "example" {
   path    = "example"
-  type    = "kv"
+  type        = "kv-v2"
   options = { version = "2" }
 }
 
