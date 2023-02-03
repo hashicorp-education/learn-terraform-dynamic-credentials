@@ -1,6 +1,4 @@
-provider "vault" {
-  address = var.vault_url
-}
+provider "vault" {}
 
 resource "vault_jwt_auth_backend" "tfc_jwt" {
   path               = var.jwt_backend_path
