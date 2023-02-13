@@ -13,6 +13,7 @@ resource "vault_jwt_auth_backend_role" "tfc_role" {
   token_policies = [vault_policy.tfc_policy.name]
 
   bound_audiences   = [var.tfc_vault_audience]
+
   bound_claims_type = "glob"
   bound_claims = {
     sub = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:*"
