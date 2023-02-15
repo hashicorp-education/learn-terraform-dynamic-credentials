@@ -18,6 +18,7 @@ resource "vault_jwt_auth_backend_role" "tfc_role" {
   bound_claims = {
     sub = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:*"
   }
+
   user_claim = "terraform_full_workspace"
   role_type  = "jwt"
   token_ttl  = 1200

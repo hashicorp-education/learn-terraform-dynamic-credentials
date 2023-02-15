@@ -7,8 +7,3 @@ output "run_role" {
   description = "Name of the vault role for trust relationship"
   value       = vault_jwt_auth_backend_role.tfc_role.role_name
 }
-
-output "vault_url" {
-  description = "URL of vault instance"
-  value       = var.vault_url
-}
