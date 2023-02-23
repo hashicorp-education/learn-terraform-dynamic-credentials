@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "vault" {}
 
 resource "vault_jwt_auth_backend" "tfc_jwt" {
@@ -12,7 +15,7 @@ resource "vault_jwt_auth_backend_role" "tfc_role" {
   role_name      = "tfc-role"
   token_policies = [vault_policy.tfc_policy.name]
 
-  bound_audiences   = [var.tfc_vault_audience]
+  bound_audiences = [var.tfc_vault_audience]
 
   bound_claims_type = "glob"
   bound_claims = {

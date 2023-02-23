@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "google" {
   project = var.gcp_project_id
   region  = "global"
@@ -33,7 +36,7 @@ resource "google_iam_workload_identity_pool_provider" "tfc_provider" {
     "attribute.terraform_full_workspace"    = "assertion.terraform_full_workspace",
   }
   oidc {
-    issuer_uri        = "https://${var.tfc_hostname}"
+    issuer_uri = "https://${var.tfc_hostname}"
     # The default audience format used by TFC is of the form:
     # //iam.googleapis.com/projects/{project number}/locations/global/workloadIdentityPools/{pool ID}/providers/{provider ID}
     # which matches with the default accepted audience format on GCP.

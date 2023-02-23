@@ -10,7 +10,7 @@ output "service_account_email" {
 
 output "project_id" {
   description = "Project ID associated with trust relationship. Not the same as project number."
-  value        = var.gcp_project_id
+  value       = var.gcp_project_id
 }
 
 output "project_number" {
