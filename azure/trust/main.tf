@@ -17,12 +17,6 @@ resource "azuread_service_principal" "tfc_service_principal" {
   application_id = azuread_application.tfc_application.application_id
 }
 
-resource "azurerm_role_assignment" "tfc_role_assignment" {
-  scope                = data.azurerm_subscription.current.id
-  principal_id         = azuread_service_principal.tfc_service_principal.object_id
-  role_definition_name = "Contributor"
-}
-
 resource "azuread_application_federated_identity_credential" "tfc_federated_credential_plan" {
   application_object_id = azuread_application.tfc_application.object_id
   display_name          = "my-tfc-federated-credential-plan"
@@ -39,3 +33,8 @@ resource "azuread_application_federated_identity_credential" "tfc_federated_cred
   subject               = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:apply"
 }
 
+resource "azurerm_role_assignment" "tfc_role_assignment" {
+  scope                = data.azurerm_subscription.current.id
+  principal_id         = azuread_service_principal.tfc_service_principal.object_id
+  role_definition_name = "Contributor"
+}
