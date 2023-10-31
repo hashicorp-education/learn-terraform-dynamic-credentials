@@ -1,0 +1,4 @@
+cluster_name   = "<YOUR_CLUSTER_NAME>"
+cluster_region = "<YOUR_CLUSTER_REGION>"
+
+tfc_organization_name = "<YOUR_ORG>"
