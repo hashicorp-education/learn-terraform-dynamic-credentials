@@ -6,7 +6,7 @@ variable "instance_type" {
 
 variable "tags" {
   description = "Tags for instances"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 
