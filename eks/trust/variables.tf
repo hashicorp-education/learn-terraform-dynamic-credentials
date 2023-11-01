@@ -39,13 +39,3 @@ variable "tfc_workspace_name" {
   default     = "learn-terraform-dynamic-credentials"
   description = "The name of the workspace that you'd like to create and connect to"
 }
-
-variable "rbac_group_oidc_claim" {
-  type    = string
-  default = "terraform_organization_name"
-}
-
-variable "rbac_group_cluster_role" {
-  type    = string
-  default = "cluster-admin"
-}

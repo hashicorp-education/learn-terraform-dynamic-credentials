@@ -1,4 +1,6 @@
 cluster_name     = "<YOUR_CLUSTER_NAME>"
 cluster_location = "<YOUR_CLUSTER_ZONE>"
+project          = "<YOUR_PROJECT_ID>"
 
 tfc_organization_name = "<YOUR_ORG>"
+tfc_workspace_name    = "learn-terraform-dynamic-credentials"

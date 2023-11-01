@@ -2,11 +2,16 @@
 # SPDX-License-Identifier: MPL-2.0
 
 terraform {
-  cloud {
-    organization = "k8s-dynamic-creds"
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.23.0"
+    }
+  }
 
+  cloud {
     workspaces {
-      name = "docs-testing"
+      name = "learn-terraform-dynamic-credentials"
     }
   }
 }

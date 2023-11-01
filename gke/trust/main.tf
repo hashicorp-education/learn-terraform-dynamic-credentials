@@ -2,13 +2,12 @@
 # SPDX-License-Identifier: MPL-2.0
 
 data "google_container_cluster" "upstream" {
-  provider = google-beta
   name     = var.cluster_name
   location = var.cluster_location
+  project  = var.project
 }
 
 data "google_client_config" "provider" {
-  provider = google-beta
 }
 
 provider "kubernetes" {
@@ -43,7 +42,7 @@ resource "kubernetes_manifest" "oidc_conf" {
             clientID    = var.tfc_kubernetes_audience
             issuerURI   = var.tfc_hostname
             userClaim   = "sub"
-            groupsClaim = var.rbac_group_oidc_claim
+            groupsClaim = "terraform_organization_name"
           }
         }
       ]
@@ -59,34 +58,12 @@ resource "kubernetes_cluster_role_binding_v1" "oidc_role" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = var.rbac_group_cluster_role
+    name      = "cluster-admin"
   }
 
-  // Option A - Bind RBAC roles to groups
-  //
-  // Groups are extracted from the token claim designated by 'rbac_group_oidc_claim'
-  //
   subject {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Group"
     name      = var.tfc_organization_name
-  }
-
-  // Option B - Bind RBAC roles to user indentities
-  //
-  // Users are extracted from the 'sub' token claim.
-  // Plan and apply phases get assigned different users identities.
-  // For TFC tokens, the format of the user id is always the one described bellow.
-  //
-  subject {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "User"
-    name      = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:plan"
-  }
-
-  subject {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "User"
-    name      = "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:apply"
   }
 }
